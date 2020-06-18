@@ -1,0 +1,100 @@
+//
+//  main.cpp
+//  QuickSort_C++
+//
+//  Created by liujin on 2020/06/19
+//  Copyright © 2020 liujin. All rights reserved.a
+//
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int Partition(vector<int>& vec, int left, int right);
+void QuickSort(vector<int>& vec, int left, int right);
+
+int main(int argc, const char* argv[])
+{
+    vector<int> vec3;
+    int i = 0;
+    int arr1[3];
+    int arr2[3];
+    do {
+        cin >> arr1[i];
+        i++;
+    } while (i < 3);
+    do {
+        cin >> arr2[i - 3];
+        i++;
+    } while (i < 6);
+    vector<int> vec1(arr1, arr1 + sizeof(arr1) / sizeof(int));
+    vector<int> vec2(arr2, arr2 + sizeof(arr2) / sizeof(int));
+
+    vec3.insert(vec3.end(), vec1.begin(), vec1.end());
+    vec3.insert(vec3.end(), vec2.begin(), vec2.end());
+
+   QuickSort(vec3, 0, int32_t(vec3.size() - 1));
+
+   vector<int>::iterator vecIte;
+    for (vecIte = vec3.begin(); vecIte != vec3.end(); vecIte++)
+    {
+        cout << *vecIte << " ";
+    }
+
+    return 0;
+}
+
+void QuickSort(vector<int>& vec, int left, int right)
+{
+    if (left == right)
+    {
+        return;
+    }
+
+    int index = Partition(vec, left, right);
+    if (index > left)
+    {
+        QuickSort(vec, left, index);
+    }
+    if (index < right)
+    {
+        QuickSort(vec, index + 1, right);
+    }
+}
+
+
+int Partition(vector<int>& vec, int left, int right)
+{
+    int i = left, j = right, x = vec[left];
+
+    while (i < j)
+    {
+        while (i < j && vec[j] >= x)
+        {
+            j--;
+        }
+        if (i < j)
+        {
+            vec[i++] = vec[j];
+        }
+
+        while (i < j && vec[i] < x)
+        {
+            i++;
+        }
+        if (i < j)
+        {
+            vec[j--] = vec[i];
+        }
+    }
+    vec[i] = x;
+
+    return i;
+}
+
+
+
+
+
